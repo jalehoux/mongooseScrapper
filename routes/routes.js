@@ -3,6 +3,7 @@ const router = express.Router()
 const request = require('request')
 const cheerio = require('cheerio')
 const Article = require('../models/Article')
+const Note = require('../models/Note')
 
 
 const url = "https://www.indeed.com/jobs?q=full+stack+developer&l=Boston%2C+MA";
@@ -39,6 +40,12 @@ router.get('/clear',(req,res)=>{
     Article.remove({}).then(()=>{
         res.send("Deleted");
     })
+})
+
+router.post("/add", (req,res)=>{
+    var note = new Note(req.body)
+    note.save();
+    res.send(req.body);
 })
 
 module.exports = router;

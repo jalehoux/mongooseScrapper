@@ -1,6 +1,4 @@
-const mongoose = require('mongoose')
-require('dotenv').config();
-mongoose.connect(process.env.MONGOOSE_CONNECT)
+const mongoose = require('./connection')
 
 const articleSchema = mongoose.Schema({
     title: String,
