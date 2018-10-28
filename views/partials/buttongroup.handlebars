@@ -1,4 +1,15 @@
 <div class="btn-group" role="group" aria-label="Basic example">
-  <button type="button" class="btn btn-success">Scrape</button>
-  <button type="button" class="btn btn-primary">Clear</button>
+  <button type="button" id= "scrape" class="btn btn-success">Scrape</button>
+  <button type="button" id="clear"class="btn btn-primary">Clear</button>
 </div>
+
+<script>
+  $('#clear').on('click', function(){
+    console.log("test");
+    window.location.href='/clear';
+  })
+
+    $('#scrape').on('click', function(){
+    window.location.href='/scrape';
+  })
+</script>

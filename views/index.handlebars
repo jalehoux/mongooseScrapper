@@ -1,14 +1,15 @@
 {{> jumbotron}}
-{{> buttongroup}}
-{{#each items}}
-<p>Job Title: {{title}}</p>
-<p>Company: {{company}}</p>
-<a href='https://indeed.com/{{link}}' target='_blank'>View Posting Here</a>
-<button type="button" class="btn btn-primary notes" data-toggle="modal" data-target="#modelId" data-id="{{_id}}">
-    Notes
-</button>
-<hr>
-{{/each}}
+<div class="container">
+    {{#each items}}
+    <p>Job Title: {{title}}</p>
+    <p>Company: {{company}}</p>
+    <a href='https://indeed.com/{{link}}' target='_blank'>View Posting Here</a>
+    <button type="button" class="btn btn-primary notes" data-toggle="modal" data-target="#modelId" data-id="{{_id}}">
+        Notes
+    </button>
+    <hr>
+    {{/each}}
+</div>
 
 <!-- Modal -->
 <div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
@@ -21,6 +22,17 @@
                     <button type="submit" class="btn btn-primary">Add</button>
                 </div>
             </form>
+            <div id="allNotes">
+                <h3>All Current Notes</h3>
+                {{#each notes}}
+                <p>Date Written:{{dateCreated}}</p>
+                <p>Text: {{text}}</p>
+                <button type="button" class="btn btn-danger" data-id="{{_id}}">
+                    Delete
+                </button>
+                <hr>
+                {{/each}}
+            </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
@@ -30,16 +42,19 @@
 
 <script>
     var id;
-    $(".notes").on('click', function(event){
-        id=$(this).attr("data-id");        
+    $(".notes").on('click', function (event) {
+        id = $(this).attr("data-id");
+        $.get("/notes",function(data){
+            $("#allNotes").html(data);
+        })
     })
 
-    $("#addNoteForm").on('submit', function(event){
+    $("#addNoteForm").on('submit', function (event) {
         event.preventDefault();
         var text = $("#addText").val();
-        var body = {id:id,text:text};
-        $.post("/add", body,function(data){
-           console.log(data)
+        var body = { id: id, text: text };
+        $.post("/add", body, function (data) {
+            console.log(data)
         })
     })
 </script>

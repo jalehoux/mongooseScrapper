@@ -20,7 +20,7 @@ router.get('/scrape', (req,res)=>{
                 article.save()
             }
         })
-        res.send('scrape complete')
+        res.redirect('/');
     })
 })
 
@@ -38,7 +38,7 @@ router.get('/',(req,res)=>{
 
 router.get('/clear',(req,res)=>{
     Article.remove({}).then(()=>{
-        res.send("Deleted");
+        res.redirect('/')
     })
 })
 
@@ -46,6 +46,12 @@ router.post("/add", (req,res)=>{
     var note = new Note(req.body)
     note.save();
     res.send(req.body);
+})
+
+router.get("/notes", (req,res)=>{
+    Note.find({}).then((data)=>{
+        res.send({notes: data});
+    })
 })
 
 module.exports = router;
