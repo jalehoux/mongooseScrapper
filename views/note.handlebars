@@ -1,8 +1,8 @@
 <div class="container">
-    <p>Job Title: {{title}}</p>
-    <p>Company: {{company}}</p>
-    <a href='https://indeed.com/{{link}}' target='_blank'>View Posting Here</a>
-    <form id="addNoteForm" data-id="{{notes.articleID}}">
+    <p>Job Title: {{notes.articleData.title}}</p>
+    <p>Company: {{notes.articleData.company}}</p>
+    <a href='https://indeed.com/{{notes.articleData.link}}' target='_blank'>View Posting Here</a>
+    <form id="addNoteForm" data-id="{{notes.articleData._id}}">
         <div class="form-group">
             <label for="addNote">Add Text</label>
             <textarea class="form-control" name="text" id="addText" rows="3" required></textarea>

@@ -61,9 +61,11 @@ router.post("/add", (req,res)=>{
 })
 
 router.get("/notes/:id", (req,res)=>{
-    Note.find({article_id: req.params.id}).then((data)=>{
-        var hbsObject = {articleID:req.params.id,data:data}
-        res.render('note', {notes: hbsObject});
+    Article.findOne({_id:req.params.id}).then((articleData)=>{
+        Note.find({article_id: req.params.id}).then((data)=>{
+            var hbsObject = {articleData:articleData,data:data}
+            res.render('note', {notes: hbsObject});
+        })
     })
 })
 
