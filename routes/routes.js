@@ -30,6 +30,12 @@ router.get('/all',(req,res)=>{
     })
 })
 
+router.get('/allnotes',(req,res)=>{
+    Note.find({}).then((data)=>{
+        res.send(data);
+    })
+})
+
 router.get('/',(req,res)=>{
     Article.find({}).then((data)=>{
         res.render('index',{items: data});
@@ -42,15 +48,22 @@ router.get('/clear',(req,res)=>{
     })
 })
 
+router.post('/deletenote',(req,res)=>{
+    Note.remove({_id:req.body.id}).then((data)=>{
+        res.send(data)
+    })
+})
+
 router.post("/add", (req,res)=>{
     var note = new Note(req.body)
     note.save();
     res.send(req.body);
 })
 
-router.get("/notes", (req,res)=>{
-    Note.find({}).then((data)=>{
-        res.send({notes: data});
+router.get("/notes/:id", (req,res)=>{
+    Note.find({article_id: req.params.id}).then((data)=>{
+        var hbsObject = {articleID:req.params.id,data:data}
+        res.render('note', {notes: hbsObject});
     })
 })
 

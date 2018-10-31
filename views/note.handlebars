@@ -1,0 +1,40 @@
+<div class="container">
+    <p>Job Title: {{title}}</p>
+    <p>Company: {{company}}</p>
+    <a href='https://indeed.com/{{link}}' target='_blank'>View Posting Here</a>
+    <form id="addNoteForm" data-id="{{notes.articleID}}">
+        <div class="form-group">
+            <label for="addNote">Add Text</label>
+            <textarea class="form-control" name="text" id="addText" rows="3" required></textarea>
+            <button type="submit" class="btn btn-primary">Add</button>
+        </div>
+    </form>
+    <h3>All Other Notes</h3>
+    {{#each notes.data}}
+    <p>Date Written: {{dateCreated}}</p>
+    <p>Text: {{text}}</p>
+    <button type="button" class="btn btn-danger" data-id="{{_id}}">
+        Delete
+    </button>
+    <hr>
+    {{/each}}
+</div>
+
+<script>
+    $('#addNoteForm').on('submit', function(e){
+        e.preventDefault()
+        var articleID = $(this).attr('data-id');
+        var text = $('#addText').val();
+        var payload = {article_id:articleID,text:text}
+        $.post('/add', payload, function(data){
+            window.location.reload();
+        })
+    })
+
+        $('.btn-danger').on('click', function(e){
+        var noteID = $(this).attr('data-id');
+        $.post('/deletenote', {id:noteID}, function(data){
+            window.location.reload();
+        })
+    })
+</script>
