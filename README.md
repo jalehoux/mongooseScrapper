@@ -16,7 +16,7 @@ After git clone npm install.  NPM start will open up the app locally.  To view t
 
 ## Authors
 
-* **Jacob Lehoux** - *Initial work* - [PurpleBooth](https://github.com/jalehooux)
+* **Jacob Lehoux** - *Initial work* - [Github](https://github.com/jalehoux)
 
 
 ## Acknowledgments
